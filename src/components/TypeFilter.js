@@ -33,8 +33,14 @@ const TypeFilter = () => {
   const { filter, updateFilter } = useContext(SiteContext);
 
   const changeFilter = (filterName) => {
-    if (filterName !== filter) {
-      updateFilter(filterName);
+    if (!filter.includes(filterName)) {
+      const newFilters = [...filter, filterName];
+      updateFilter(newFilters);
+    } else {
+      if (filter.length !== 1) {
+        const newFilters = filter.filter((item) => item !== filterName);
+        updateFilter(newFilters);
+      }
     }
   };
 
@@ -45,7 +51,7 @@ const TypeFilter = () => {
         {AVAILABLE_FILTERS.map((item) => {
           return (
             <OptionFilter
-              check={filter === item}
+              check={filter.includes(item)}
               label={item}
               onClick={changeFilter}
             />

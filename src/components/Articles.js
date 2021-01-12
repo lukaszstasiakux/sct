@@ -6,20 +6,32 @@ import { prepareData, articlesSort } from "../helpers/articles";
 import { ContentArea } from "./Layout";
 import Empty from "./Empty";
 import ErrorModal from "./ErrorModal";
+import { TYPE } from "../utils/const";
 
-const Articles = (props) => {
+const Articles = () => {
   const [articles, updateArticles] = useState([]);
   const { filter, sort, error, updateError } = useContext(SiteContext);
 
-  const fetchData = (filterValue) => {
-    ApiCall(
-      filterValue,
-      (preData) => {
-        const data = prepareData(preData);
-        updateArticles(data);
-      },
-      () => updateError(true)
-    );
+  const chunkFetch = async (fetched, filters, name) => {
+    if (filters.includes(name)) {
+      fetched[name] = await ApiCall(name, () => updateError(true));
+      return fetched;
+    }
+  };
+
+  const fetchData = async (filterValue) => {
+    const fetchedArticles = {
+      fashion: [],
+      sports: [],
+    };
+    await chunkFetch(fetchedArticles, filterValue, TYPE.FASHION);
+    await chunkFetch(fetchedArticles, filterValue, TYPE.SPORTS);
+
+    const data = prepareData([
+      ...fetchedArticles.fashion,
+      ...fetchedArticles.sports,
+    ]);
+    updateArticles(data);
   };
 
   useEffect(() => {

@@ -1,7 +1,7 @@
 "use strict";
 import axios from "axios";
 
-export const ApiCall = (path, callback, errorCallback) => {
+export const ApiCall = (path, errorCallback) => {
   return axios
     .get(`http://localhost:6010/articles/${path}`, {
       headers: {
@@ -10,10 +10,11 @@ export const ApiCall = (path, callback, errorCallback) => {
     })
     .then((response) => {
       if (response.status === 200) {
-        callback(response.data.articles);
+        return response.data.articles;
       }
     })
-    .catch((error) => {
+    .catch(() => {
       errorCallback();
+      return [];
     });
 };
