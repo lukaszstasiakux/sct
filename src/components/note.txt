@@ -1,0 +1,12 @@
+
+I created simple app with react, for styling I used "styled-components", for date i used "date-fns".
+App is responsive and compliant with the guidelines. 
+
+possible improve:
+-> use GraphQL for API call, IMO this would enable easier and more efficient database queries
+-> add Theme for styles,
+-> adding TypeScript to the project
+-> creating loaders
+-> adding a notification system for the user to make the bug from the database display nicely as a toast at the top of the page
+-> remembering selected filters by the user
+-> add tests
