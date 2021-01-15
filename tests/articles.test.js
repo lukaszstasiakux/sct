@@ -1,5 +1,9 @@
 import { getTime, format } from "date-fns";
-import { articlesSort, dateFormater } from "../src/helpers/articles";
+import {
+  articlesSort,
+  dateFormater,
+  decodeDate,
+} from "../src/helpers/articles";
 import { SORT } from "../src/utils/const";
 import { mocksArticles } from "./mocksData";
 
@@ -61,14 +65,29 @@ describe("articlesSort", () => {
 });
 
 describe("dateFormater", () => {
-	it("should return 12. Dec 2020", () => {
-		const date = getTime(new Date('2020 12 12'));
-		const expected = "12. Dec 2020";
-		const result =  dateFormater(date);
-		expect(result).toEqual(expected);
-	})
-	it("date is undefined, should return false", () => {
-		const result =  dateFormater();
-		expect(result).toBeFalsy()
-	})
-})
+  it("should return 12. Dec 2020", () => {
+    const date = getTime(new Date("2020 12 12"));
+    const expected = "12. Dec 2020";
+    const result = dateFormater(date);
+    expect(result).toEqual(expected);
+  });
+
+  it("date is undefined, should return false", () => {
+    const result = dateFormater();
+    expect(result).toBeFalsy();
+  });
+});
+
+describe("decodeDate", () => {
+  it("date = 2. februar 2019, should return 1549065600000", () => {
+    const date = "2. februar 2019";
+    const expected = getTime(new Date("2019 2 2"));
+    const result = decodeDate(date);
+    expect(result).toEqual(expected);
+  });
+
+  it("date is undefined, should return false", () => {
+    const result = decodeDate();
+    expect(result).toBeFalsy();
+  });
+});

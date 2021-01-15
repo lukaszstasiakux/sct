@@ -2,6 +2,9 @@ import { getTime, format } from "date-fns";
 import { DICTIONARY, SORT } from "../utils/const";
 
 export const decodeDate = (date) => {
+  if (!date) {
+    return false;
+  }
   const chunkDate = date.split(" ");
   return getTime(
     new Date(`${chunkDate[2]} ${DICTIONARY[chunkDate[1]]} ${chunkDate[0]}`)
@@ -15,9 +18,9 @@ export const prepareData = (data) => {
 };
 
 export const dateFormater = (date) => {
-  if(!date){
+  if (!date) {
     return false;
-  } 
+  }
   return format(new Date(date), "dd. MMM yyyy");
 };
 
