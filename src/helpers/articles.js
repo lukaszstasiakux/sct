@@ -14,8 +14,11 @@ export const prepareData = (data) => {
   return data;
 };
 
-export const dateFormater = (data) => {
-  return format(new Date(data), "dd. MMM yyyy");
+export const dateFormater = (date) => {
+  if(!date){
+    return false;
+  } 
+  return format(new Date(date), "dd. MMM yyyy");
 };
 
 export const articlesSort = (a, b, order) => {
