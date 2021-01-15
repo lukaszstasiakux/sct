@@ -20,10 +20,10 @@ export const dateFormater = (data) => {
 
 export const articlesSort = (a, b, order) => {
   if (a.date < b.date) {
-    return order === SORT.ASC ? 1 : -1;
+    return order === SORT.DESC ? 1 : -1;
   }
   if (a.date > b.date) {
-    return order === SORT.ASC ? -1 : 1;
+    return order === SORT.DESC ? -1 : 1;
   }
   return 0;
 };
